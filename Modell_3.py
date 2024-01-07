@@ -22,13 +22,13 @@ def layers(R_p, dW, R_stern, T_stern, M_stern, A_B, e, a_p, k_2, Q):
     E_stern = h_s*math.pi*R_p**2*(1-A_B)
     T_o = ((E_stern+E_tidal)/(4*math.pi*sigma*R_p**2))**(1/4) #Berechnung der oberen Temperatur
     T_m = 273.15 #mittlere Temperatur wird auf den Gefrierpunkt gesetzt
-    #print(((E_stern+E_tidal)/(4*math.pi*sigma*R_p**2))**(1/4))
 
     #Berechnung der Schichtdicke
     x_m = x_o - (l_E*A) * (T_m-T_o)/(E_tidal)
     
     T_u = T_m + E_tidal/(l_W*A) * (x_m-x_u)
 
+    #Schleife, die die Werte korrigiert, falls eine der Schichten negativ wird
     if x_m-x_u < 0:
         x_o = x_u+dW
         x_m = x_u
