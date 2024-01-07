@@ -5,22 +5,19 @@ from scipy.constants import G
 from scipy.constants import Stefan_Boltzmann as sigma
 
 R_planet = 6e6
-R_stern = 0.6 *6.96342*10**8 # *6.96342*10**8 weil sonnenradius
+R_stern = 0.6 *6.96342*10**8 # *6.96342*10**8 sonnenradius
 T_stern = 2500 # in Kelvin
-M_stern = 0.6 *1.989*10**30 # *1.989*10**30 weil sonnenmasse
+M_stern = 0.6 *1.989*10**30 # *1.989*10**30 sonnenmasse
 R_p = 6e6
 A_B = 0.9 #0.1 bis 0.9
 e = 0.5 #0.1 bis 0.9
-#M_planet = 5513*4/3*math.pi*R_p**3
-
-mu_w = 0.018015 #molare Masse von Wasser in kg/mol
-R = 8.314 #ideale Gaskonstante J/(mol*K)
+M_planet = 5513*4/3*math.pi*R_p**3 #Berechnung über die Dichte, Erddichte als Referenz
 
 x_u = R_p
 
 k_2 = 0.3 #0.01 bis 1, 0.3 bei der erde
 Q = 100 #1 bis 10**6
-a_p = 0.5 * 14959787000
+a_p = 0.5 * 14959787000 # AU
 
 #Mindestabstand bestimmt durch Strahlung
 def mindestabstand(R_stern, T_stern, A_B):
@@ -37,15 +34,13 @@ def maximalabstand(M_stern, T_u, R_planet, e, k_2, Q):
     return a_max
     
 
-def wasserschicht_planet(a_p, R_stern, T_stern, M_stern, R_planet, A_B, e, k_2, Q, H2O):
+def wasserschicht_planet(a_p, R_stern, T_stern, M_stern, R_planet, A_B, e, k_2, Q, H2O): #H2O ist die Gesamtschichtdicke in Metern
     
     #Naturkonstanten
 
     rho_w = 990 #mittlere Dichte von Wasser in kg/m^3
     rho_e = 910 #mittlere Dichte von Eis in kg/m^3
     mu_w = 0.018015 #molare Masse von Wasser in kg/mol
-
-    #M_H2O = rho_w*4/3*math.pi*((R_planet+4000)**3-R_planet**3) #Gesamtmasse des Wassers auf dem Planeten
     
     #zwischenschritte
     M_planet = 5513*4/3*math.pi*R_planet**3
@@ -61,7 +56,6 @@ def wasserschicht_planet(a_p, R_stern, T_stern, M_stern, R_planet, A_B, e, k_2, 
     g_p = G*M_planet/(R_planet**2) #Gravitation des Planeten
     p_u = 0 #Druck zwischen Ozean und Gestein, wird hier nur initialisiert
 
-    
     #Temperatur in K und Dampfdruck in pa
     T = []
     p = []
@@ -102,17 +96,7 @@ def wasserschicht_planet(a_p, R_stern, T_stern, M_stern, R_planet, A_B, e, k_2, 
     
     if p_u == 0:
         return 0, 0, 0, T_u
-    '''
-    else:
-        k = 0.5
-        hl = []
-        while p_u < (M_H2O*g_p/(4*math.pi*R_planet**2)):
-            M_H2O = rho_w*4/3*math.pi*((R_planet+700-k)**3-R_planet**3)
-            hl.append(M_H2O)
-            k += 0.5
-        
-        M_H2O = hl[-2] 
-    '''
+   
     #Hilfsgrößen
 
     a = 4/3*math.pi*rho_e
@@ -128,7 +112,7 @@ def wasserschicht_planet(a_p, R_stern, T_stern, M_stern, R_planet, A_B, e, k_2, 
     C = 0
     D = (-h*c/a)/(d-h*b/a)
 
-    #Bestimmung von x_i mit cardanischer formel
+    #Bestimmung von x_m mit cardanischer formel
 
     p = C - B**2 /3
     q = 2* B**3 /27 - B*C /3 +D
