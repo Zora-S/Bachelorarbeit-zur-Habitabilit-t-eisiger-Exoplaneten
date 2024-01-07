@@ -12,9 +12,9 @@ str_1 = 'Boah irgendwas ist hier falsch. Habe auch keinen Bock mehr. Verdammte K
 T_M = 273.15
 
 #freie Parameter 
-R_stern = 0.6*6.96342*10**8 # *6.96342*10**8 weil sonnenradius in m
+R_stern = 0.6*6.96342*10**8 # *6.96342*10**8 sonnenradius in m
 T_stern = 2500 #in K
-M_stern = 0.6*1.898*10**27 # *1.989*10**30 weil sonnenmasse in kg
+M_stern = 0.6*1.898*10**27 # *1.989*10**30 sonnenmasse in kg
 R_planet = 12*10**6 #2000km bis 12000km in metern
 M_planet = 5513*4/3*math.pi*R_planet**3 #Masse des Planeten ausgerechnet über die dichte, erddichte als referenzwert 
 A_B = 0.9 #0.1 bis 0.9
@@ -43,18 +43,3 @@ def func(a, G, sigma, l_W, l_E, T_M, R_stern, T_stern, M_stern, R_planet, M_plan
     print('Wasserschicht', x_M)
     print('Eisschicht', x_o)
     return x_o, x_M
-
-x1 = []
-x2 = []
-'''
-for i in range(len(a)):
-    res = func(a, G, sigma, l_W, l_E, T_M, R_stern, T_stern, M_stern, R_planet, M_planet, A_B, e[i], k_2, Q)
-    x1.append(res[0])
-    x2.append(res[1])
-
-if T_u>273.15:
-    print('yay')
-else:
-    print(str_1)
-'''    
-func(a, G, sigma, l_W, l_E, T_M, R_stern, T_stern, M_stern, R_planet, M_planet, A_B, e, k_2, Q)
